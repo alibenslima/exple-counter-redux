@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import "./App.css";
+import { DEC, INC, TOG } from "./redux/Action";
 
 function App() {
+  const { count, isShown } = useSelector((state) => state);
+  const dispatche = useDispatch();
+  const plus = () => dispatche(INC());
+  const moins = () => dispatche(DEC());
+  const show = () => dispatche(TOG());
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={show}> {isShown ? "Hide" : "Show"}</button>
+      {isShown ? (
+        <div>
+          <h1>Counter : {count}</h1>
+          <button onClick={plus}>+</button>
+          <button onClick={moins}>-</button>
+        </div>
+      ) : null}
     </div>
   );
 }
